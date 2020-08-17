@@ -30,10 +30,15 @@ public class ActivitySubmissionDAO {
 		ResultSet rs = null;
 		
 		try{
+			
+			//usar a parte de proteção do banco 
+			
 			conn = ConnectionDAO.getInstance().getConnection();
-			stmt = conn.createStatement();
-		
-			rs = stmt.executeQuery("SELECT activitysubmission.feedback FROM activitysubmission WHERE idactivitysubmission=" + idActivitySubmission);
+			PreparedStatement stmt = this.connection.prepareStatement(("SELECT activitysubmission.feedback FROM activitysubmission WHERE idactivitysubmission=?");
+			stmt.setInt(1, idActivitySubmission);
+			stmt.execute();
+			
+			//----------------------------------------------------------------------
 			
 			if(rs.next()){
 				return ActivityFeedback.valueOf(rs.getInt("feedback"));
