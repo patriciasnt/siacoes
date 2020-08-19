@@ -86,6 +86,10 @@ public class ActivitySubmissionDAO {
 	}
 	
 	public List<ActivitySubmission> listAll() throws SQLException{
+		/* Tive problemas com a implementação, porém analisando a estrutura, nota-se que  
+		A repetição influência no principio do aberto e fechado, pois toda vez que a variavél é repetida e 
+		inicializada, abre-se oportunidade para pequenas modificacoes em seus valores, o que pode acarretar em 
+		iniciacioes indevidas */
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
