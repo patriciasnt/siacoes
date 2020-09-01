@@ -45,7 +45,6 @@ public class DepartmentDAO {
 		}
 	}
 	
-	/*
 	public List<Department> listAll(boolean onlyActive) throws SQLException{
 		Connection conn = null;
 		Statement stmt = null;
@@ -74,32 +73,20 @@ public class DepartmentDAO {
 			if((conn != null) && !conn.isClosed())
 				conn.close();
 		}
-	}*/ 
-	
+	}
 	
 	public List<Department> listByCampus(int idCampus, boolean onlyActive) throws SQLException{
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		
+		try{
+			conn = ConnectionDAO.getInstance().getConnection();
+			stmt = conn.createStatement();
 		
-		//----------Lista all na função listar por campus
-		try {
-            conn = ConnectionDAO.getInstance().getConnection();
-            stmt = conn.createStatement();
-        if (idCampus != null && idCampus > 0) {
-            rs = stmt.executeQuery("SELECT department.*, campus.name AS campusName " +
-                "FROM department INNER JOIN campus ON campus.idCampus=department.idCampus " +
-                "WHERE department.idCampus=" + String.valueOf(idCampus) + (onlyActive ? " AND department.active=1" : "") + " ORDER BY department.name");
-        } else {
-
-            rs = stmt.executeQuery("SELECT department.*, campus.name AS campusName " +
-                "FROM department INNER JOIN campus ON campus.idCampus=department.idCampus " +
-                (onlyActive ? " WHERE department.active=1" : "") + " ORDER BY department.name");
-        }
-		
-			
-		}
+			rs = stmt.executeQuery("SELECT department.*, campus.name AS campusName " +
+					"FROM department INNER JOIN campus ON campus.idCampus=department.idCampus " +
+					"WHERE department.idCampus=" + String.valueOf(idCampus) + (onlyActive ? " AND department.active=1" : "") + " ORDER BY department.name");
 			
 			List<Department> list = new ArrayList<Department>();
 			
@@ -117,7 +104,6 @@ public class DepartmentDAO {
 				conn.close();
 		}
 	}
-	//----------------------------------------------------------------------------
 	
 	public int save(int idUser, Department department) throws SQLException{
 		boolean insert = (department.getIdDepartment() == 0);

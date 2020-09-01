@@ -1,19 +1,20 @@
 ﻿package br.edu.utfpr.dv.siacoes.model;
 
 import java.io.Serializable;
+@ToString @AllArgsConstructor
 
 public class Department implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
-	private int idDepartment;
-	private Campus campus;
-	private String name;
-	private String fullName;
-	private transient byte[] logo;
-	private boolean active;
-	private String site;
-	private String initials;
+
+	@Getter @Setter private int idDepartment;
+	@Getter @Setter private Campus campus;
+	@Getter @Setter private String name;
+	@Getter @Setter private String fullName;
+	@Getter @Setter private transient byte[] logo;
+	@Setter private boolean active;
+	@Getter @Setter private String site;
+	@Getter @Setter private String initials;
 	
 	public Department(){
 		this.setIdDepartment(0);
@@ -26,6 +27,7 @@ public class Department implements Serializable {
 		this.setInitials("");
 	}
 	
+	/*
 	public int getIdDepartment() {
 		return idDepartment;
 	}
@@ -55,10 +57,13 @@ public class Department implements Serializable {
 	}
 	public void setLogo(byte[] logo) {
 		this.logo = logo;
-	}
+	}*/
+
 	public boolean isActive() {
 		return active;
 	}
+
+	/*
 	public void setActive(boolean active) {
 		this.active = active;
 	}
@@ -78,5 +83,5 @@ public class Department implements Serializable {
 	public String toString(){
 		return this.getName();
 	}
-	
+	*/
 }
