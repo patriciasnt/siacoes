@@ -15,6 +15,8 @@ import br.edu.utfpr.dv.siacoes.model.Module;
 import br.edu.utfpr.dv.siacoes.model.User;
 
 public class BugReportDAO {
+	public ListDAO lista;
+
 	
 	public BugReport findById(int id) throws SQLException{
 		Connection conn = null;
@@ -46,34 +48,12 @@ public class BugReportDAO {
 		}
 	}
 	
-	public List<BugReport> listAll() throws SQLException{
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		
-		try{
-			conn = ConnectionDAO.getInstance().getConnection();
-			stmt = conn.createStatement();
-			
-			rs = stmt.executeQuery("SELECT bugreport.*, \"user\".name " +
-					"FROM bugreport INNER JOIN \"user\" ON \"user\".idUser=bugreport.idUser " +
-					"ORDER BY status, reportdate");
-			List<BugReport> list = new ArrayList<BugReport>();
-			
-			while(rs.next()){
-				list.add(this.loadObject(rs));
-			}
-			
-			return list;
-		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
-		}
-	}
+
+	//adicionando o ListDAO para criar a execução
+	ListDAO = new ListBugReportDAO;
+
+
+
 	
 	public int save(BugReport bug) throws SQLException{
 		boolean insert = (bug.getIdBugReport() == 0);
